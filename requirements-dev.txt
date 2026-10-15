@@ -3,3 +3,6 @@ ruff
 mypy
 monkeytype
 pytest
+pytest-mock
+pytest-html
+coverage

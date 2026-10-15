@@ -19,3 +19,10 @@ python_version = "3.11"
 strict = true
 mypy_path = "src"
 explicit_package_bases = true
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
