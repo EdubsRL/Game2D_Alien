@@ -1,6 +1,7 @@
 import pygame
 
 from bullet_manager import BulletManager
+from fast_alien import FastAlien
 from fleet_manager import FleetManager
 from game_events import GameEventHandler
 from game_renderer import GameRenderer
@@ -29,7 +30,8 @@ class AlienInvasion:
 
         # Cada classe tem uma única responsabilidade (SRP)
         self.bullet_manager = BulletManager(self.screen, self.settings, self.ship)
-        self.fleet_manager = FleetManager(self.screen, self.settings, self.ship)
+        # OCP: para trocar o tipo de alien basta passar outra classe (Alien, FastAlien...)
+        self.fleet_manager = FleetManager(self.screen, self.settings, self.ship, FastAlien)
         self.event_handler = GameEventHandler(self.ship, self.bullet_manager)
         self.renderer = GameRenderer(
             self.screen,
