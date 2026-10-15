@@ -83,7 +83,9 @@ def test_fechar_janela_encerra_o_jogo(
 def test_renderer_pinta_o_fundo(mocker: MockerFixture, settings: Settings) -> None:
     """Mock da tela: confirma que o fundo foi pintado com a cor configurada."""
     mock_screen = mocker.Mock()
+    mock_screen.blits.return_value = []  # o pygame-ce itera sobre o retorno de blits()
     mock_ship = mocker.Mock()
+    mock_flip = mocker.patch("pygame.display.flip")  # não precisa de janela de verdade
     renderer = GameRenderer(
         mock_screen, settings.bg_color, mock_ship, pygame.sprite.Group(), pygame.sprite.Group()
     )
@@ -92,6 +94,7 @@ def test_renderer_pinta_o_fundo(mocker: MockerFixture, settings: Settings) -> No
 
     mock_screen.fill.assert_called_once_with(settings.bg_color)
     mock_ship.blitme.assert_called_once()
+    mock_flip.assert_called_once()
 
 
 def test_update_game_state_aciona_os_gerenciadores(mocker: MockerFixture) -> None:
